@@ -40,6 +40,7 @@ public class TemperatureControllerImpl
 	private double temperatureWantedLivingRoom = 296.15d;
 	private double temperatureWantedBedroom = 293.15d;
 	private double temperatureWantedBathroom = 291.15d;
+	private double erreur_preced, somme_erreur = 0.0d;
 
 	/**
 	* The temperature wanted in a room in kelvin:
@@ -106,7 +107,7 @@ public class TemperatureControllerImpl
 	@Override
 	public long getPeriod() {
 		System.out.println("In function getPeriod.");
-		return 3000;
+		return 300;
 	}
 
 	@Override
@@ -118,6 +119,7 @@ public class TemperatureControllerImpl
 	public void setTargetedTemperature(String targetedRoom, double temperature) {
 		switch (targetedRoom) {
 		case "kitchen":
+			System.out.println("Val temp Kitchen: "+temperature);
 			temperatureWantedKitchen = temperature;
 			break;
 		case "livingroom":
@@ -207,7 +209,7 @@ public class TemperatureControllerImpl
 	}
 
 	/**
-	 * 	 * Récupère l'ensemble des coolers d'une pièce
+	 * 	 * Rï¿½cupï¿½re l'ensemble des coolers d'une piï¿½ce
 	 * @param location
 	 * @return
 	 */
@@ -222,7 +224,7 @@ public class TemperatureControllerImpl
 	}
 
 	/**
-	 * 	 * Récupère l'ensemble des heaters d'une pièce
+	 * 	 * Rï¿½cupï¿½re l'ensemble des heaters d'une piï¿½ce
 	 * @param location
 	 * @return
 	 */
@@ -237,7 +239,7 @@ public class TemperatureControllerImpl
 	}
 
 	/**
-	 * 	 * Récupère l'ensemble un thermomètre d'une pièce
+	 * 	 * Rï¿½cupï¿½re l'ensemble un thermomï¿½tre d'une piï¿½ce
 	 * @param location
 	 * @return
 	 */
@@ -251,6 +253,25 @@ public class TemperatureControllerImpl
 		}
 		return thermometerFromLocation;
 	}
+	
+	private double correcteur(double temperatureCapturing, double targetTemperature, double erreur_preced ) {
+		double commande, erreur, variations_erreur;
+		double Kp=0.08;
+		double Ki=0.0;
+		double Kd=0.0;
+		erreur=Math.abs(targetTemperature-temperatureCapturing);
+		somme_erreur +=erreur;
+		variations_erreur = erreur - erreur_preced;
+		commande=Kp*erreur + Ki*somme_erreur + Kd*variations_erreur;
+		if (commande > 1.0) {
+			commande=1.0;
+		}
+		System.out.println("\n\rValeur Kp : "+Kp);
+		System.out.println("\n\rValeur Ki : "+Ki);
+		System.out.println("\n\rValeur Kd : "+Kd);
+		System.out.println("\n\rValeur commande : "+commande);
+		return commande;
+	}
 
 	/**
 	 * Configure le cooler par rapport au thermometre de meme location
@@ -262,11 +283,14 @@ public class TemperatureControllerImpl
 		thermometerFromLocation = getThermometerFromlocation(coolerLocation);
 		if (thermometerFromLocation != null) {
 			double temperatureCapturing = thermometerFromLocation.getTemperature();
-			if (temperatureCapturing > getTargetedTemperature(coolerLocation) + 1) {
-				cooler.setPowerLevel(0.1d);
+			double commande = correcteur(temperatureCapturing,getTargetedTemperature(coolerLocation),erreur_preced);
+			if (temperatureCapturing > getTargetedTemperature(coolerLocation)) {
+				System.out.println("\n\ril faut refroidir");
+				cooler.setPowerLevel(commande);
 			} else {
 				cooler.setPowerLevel(0.0d);
 			}
+			erreur_preced=temperatureCapturing;
 		}
 	}
 
@@ -280,11 +304,13 @@ public class TemperatureControllerImpl
 		thermometerFromLocation = getThermometerFromlocation(heaterLocation);
 		if (thermometerFromLocation != null) {
 			double temperatureCapturing = thermometerFromLocation.getTemperature();
-			if (temperatureCapturing < getTargetedTemperature(heaterLocation) - 1) {
-				heater.setPowerLevel(0.1d);
+			double commande = correcteur(temperatureCapturing,getTargetedTemperature(heaterLocation), erreur_preced);
+			if (temperatureCapturing < getTargetedTemperature(heaterLocation)) {
+				heater.setPowerLevel(commande);
 			} else {
 				heater.setPowerLevel(0.0d);
 			}
+			erreur_preced=temperatureCapturing;
 		}
 	}
 
