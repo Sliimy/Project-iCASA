@@ -3,7 +3,7 @@
   <component classname="org.example.temperature.controller.TemperatureControllerImpl" name="TemperatureController">
     <callback method="start" transition="validate"/>
     <callback method="stop" transition="invalidate"/>
-    <requires aggregate="true" specification="fr.liglab.adele.icasa.device.temperature.Cooler" field="coolers">
+    <requires aggregate="true" optional="true" specification="fr.liglab.adele.icasa.device.temperature.Cooler" field="coolers">
       <callback method="bindCooler" type="bind"/>
       <callback method="unbindCooler" type="unbind"/>
     </requires>
@@ -16,6 +16,7 @@
       <callback method="unbindThermometer" type="unbind"/>
     </requires>
     <provides specifications="fr.liglab.adele.icasa.service.scheduler.PeriodicRunnable"/>
+    <provides specifications="org.example.temperature.configuration.TemperatureConfiguration"/>
   </component>
   <instance component="TemperatureController" name="temperature.controller"/>
 </ipojo>
