@@ -22,6 +22,7 @@ public class TemperatureManagerImpl implements TemperatureManagerAdministration 
 	public void temperatureIsTooHigh(String roomName) {
 		double actualTemperature = temperatureConfiguration.getTargetedTemperature(roomName);
 		double newTemperature = actualTemperature - 5.0d;
+		//double newTemperature = 293.15d;
 		temperatureConfiguration.setTargetedTemperature(roomName, newTemperature);
 		System.out.println("New temperature in room " + roomName + " is " + newTemperature);
 	}
@@ -29,6 +30,7 @@ public class TemperatureManagerImpl implements TemperatureManagerAdministration 
 	@Override
 	public void temperatureIsTooLow(String roomName) {
 		double actualTemperature = temperatureConfiguration.getTargetedTemperature(roomName);
+		//double newTemperature = 270.00d;
 		double newTemperature = actualTemperature + 5.0d;
 		temperatureConfiguration.setTargetedTemperature(roomName, newTemperature);
 		System.out.println("New temperature in room " + roomName + " is " + newTemperature);
