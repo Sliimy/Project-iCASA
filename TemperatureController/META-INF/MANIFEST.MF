@@ -116,3 +116,4 @@ iPOJO-Components: instance { $component="TemperatureController" $name=
  glab.adele.icasa.device.temperature.Heater}" $names="{heater}" }metho
  d { $name="setTemperatureChangementFromLocation" $arguments="{java.la
  ng.String}" $names="{location}" }}}
+ 
