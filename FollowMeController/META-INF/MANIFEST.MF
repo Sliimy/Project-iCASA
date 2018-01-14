@@ -5,6 +5,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-SymbolicName: FollowMeController
 Bundle-Version: 1.0.0.qualifier
 Created-By: iPOJO 1.12.1
+Export-Package: org.example.follow.me.configuration
 Import-Package: fr.liglab.adele.icasa, fr.liglab.adele.icasa.access, f
  r.liglab.adele.icasa.access.command, fr.liglab.adele.icasa.applicatio
  n, fr.liglab.adele.icasa.application.impl, fr.liglab.adele.icasa.appl
@@ -128,5 +129,4 @@ iPOJO-Components: instance { $component="FollowMe" $name="follow.me.co
  $names="{location}" }method { $name="setStatusLightsFromPresenceSenso
  r" $arguments="{fr.liglab.adele.icasa.device.presence.PresenceSensor}
  " $names="{presenceSensor}" }}}
-Export-Package: org.example.follow.me.configuration
 

@@ -5,6 +5,8 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-SymbolicName: FollowMeManager
 Bundle-Version: 1.0.0.qualifier
 Created-By: iPOJO 1.12.1
+Export-Package: org.example.follow.me.administration,org.example.follo
+ w.me.illuminance
 Import-Package: fr.liglab.adele.icasa, fr.liglab.adele.icasa.access, f
  r.liglab.adele.icasa.access.command, fr.liglab.adele.icasa.applicatio
  n, fr.liglab.adele.icasa.application.impl, fr.liglab.adele.icasa.appl
@@ -64,6 +66,4 @@ iPOJO-Components: instance { $component="FollowMeManager" $name="follo
  ion" $arguments="{org.example.follow.me.configuration.FollowMeConfigu
  ration,java.util.Map}" $names="{followMeConfiguration,properties}" }m
  ethod { $name="stop" }method { $name="start" }}}
-Export-Package: org.example.follow.me.administration,
- org.example.follow.me.illuminance
 
