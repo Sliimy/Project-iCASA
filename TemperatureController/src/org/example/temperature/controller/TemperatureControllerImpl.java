@@ -92,6 +92,7 @@ public class TemperatureControllerImpl
 	/** Component Lifecycle Method */
 	public void start() {
 		System.out.println("Temperature controller is starting ...");
+		System.out.println("test");
 	}
 
 	@Override
