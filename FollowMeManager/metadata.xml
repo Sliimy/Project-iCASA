@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ipojo xmlns="org.apache.felix.ipojo">
+  <component classname="org.example.follow.me.manager.FollowMeManagerImpl" name="FollowMeManager">
+    <requires specification="org.example.follow.me.configuration.FollowMeConfiguration" field="followMeConfigurationServices"/>
+    <provides specifications="org.example.follow.me.manager.FollowMeAdministration"/>
+    <callback method="start" transition="validate"/>
+    <callback method="stop" transition="invalidate"/>
+  </component>
+  <instance component="FollowMeManager" name="follow.me.manager"/>
+</ipojo>
