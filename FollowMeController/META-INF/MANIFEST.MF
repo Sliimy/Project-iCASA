@@ -116,17 +116,20 @@ iPOJO-Components: instance { $component="FollowMe" $name="follow.me.co
  ed" $arguments="{fr.liglab.adele.icasa.device.GenericDevice,java.lang
  .String}" $names="{arg0,arg1}" }method { $name="deviceRemoved" $argum
  ents="{fr.liglab.adele.icasa.device.GenericDevice}" $names="{arg0}" }
- method { $name="getBinaryLightFromlocation" $return="java.util.List" 
- $arguments="{java.lang.String}" $names="{location}" }method { $name="
- getDimmerLightFromlocation" $return="java.util.List" $arguments="{jav
- a.lang.String}" $names="{location}" }method { $name="getNumberBinaryL
- ightONFromLocation" $return="int" $arguments="{java.lang.String}" $na
- mes="{location}" }method { $name="getNumberLightONFromLocation" $retu
- rn="int" $arguments="{java.lang.String}" $names="{location}" }method 
- { $name="getPowerConsumptionONFromLocation" $return="double" $argumen
- ts="{java.lang.String}" $names="{location}" }method { $name="getIllum
- inanceFromLocation" $return="double" $arguments="{java.lang.String}" 
- $names="{location}" }method { $name="setStatusLightsFromPresenceSenso
- r" $arguments="{fr.liglab.adele.icasa.device.presence.PresenceSensor}
- " $names="{presenceSensor}" }}}
+ method { $name="getPresenceSensorFromlocation" $return="java.util.Lis
+ t" $arguments="{java.lang.String}" $names="{location}" }method { $nam
+ e="getBinaryLightFromlocation" $return="java.util.List" $arguments="{
+ java.lang.String}" $names="{location}" }method { $name="getDimmerLigh
+ tFromlocation" $return="java.util.List" $arguments="{java.lang.String
+ }" $names="{location}" }method { $name="getNumberBinaryLightONFromLoc
+ ation" $return="int" $arguments="{java.lang.String}" $names="{locatio
+ n}" }method { $name="getNumberLightONFromLocation" $return="int" $arg
+ uments="{java.lang.String}" $names="{location}" }method { $name="getP
+ owerConsumptionONFromLocation" $return="double" $arguments="{java.lan
+ g.String}" $names="{location}" }method { $name="getIlluminanceFromLoc
+ ation" $return="double" $arguments="{java.lang.String}" $names="{loca
+ tion}" }method { $name="setStatusLightsFromPresenceSensor" $arguments
+ ="{fr.liglab.adele.icasa.device.presence.PresenceSensor}" $names="{pr
+ esenceSensor}" }method { $name="setLightsOffFromLocation" $arguments=
+ "{java.lang.String}" $names="{location}" }}}
 

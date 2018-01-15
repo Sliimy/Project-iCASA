@@ -170,6 +170,15 @@ public class FollowMeImpl implements FollowMeConfiguration, DeviceListener<Gener
 						"The device with the serial number : " + changingSensor.getSerialNumber() + " has changed");
 				System.out.println("This sensor is in the room:" + detectorLocation);
 				setStatusLightsFromPresenceSensor(changingSensor);
+			}else if (propertyName.equals(PresenceSensor.LOCATION_PROPERTY_NAME)) {
+				List<PresenceSensor> presenceSensorsLocation = getPresenceSensorFromlocation((String) oldValue);
+				if (presenceSensorsLocation.size()==0) {
+					setLightsOffFromLocation((String)oldValue);
+				}
+				presenceSensorsLocation = getPresenceSensorFromlocation((String) newValue);
+				if (presenceSensorsLocation.size()>2) {
+					setStatusLightsFromPresenceSensor(changingSensor);
+				}
 			}
 			//TODO: gérer bouger les detecteur
 		} else if (device instanceof BinaryLight) {
@@ -220,7 +229,20 @@ public class FollowMeImpl implements FollowMeConfiguration, DeviceListener<Gener
 	@Override
 	public void deviceRemoved(GenericDevice arg0) {
 	}
-
+	/**
+	 * 	 * Récupère l'ensemble des PresenceSensor d'une pièce
+	 * @param location
+	 * @return
+	 */
+	private synchronized List<PresenceSensor> getPresenceSensorFromlocation(String location) {
+		List<PresenceSensor> presenceSensorsLocation = new ArrayList<PresenceSensor>();
+		for (PresenceSensor presenceSensor : presenceSensorsLocation) {
+			if (presenceSensor.getPropertyValue(LOCATION_PROPERTY_NAME).equals(location)) {
+				presenceSensorsLocation.add(presenceSensor);
+			}
+		}
+		return presenceSensorsLocation;
+	}
 	/**
 	 * 	 * Récupère l'ensemble des Binary lights d'une pièce
 	 * @param location
@@ -367,6 +389,16 @@ public class FollowMeImpl implements FollowMeConfiguration, DeviceListener<Gener
 			} else {
 				dimmerLight.setPowerLevel(0.0d);
 			}
+		}
+	}
+	public void setLightsOffFromLocation (String location) {
+		List<BinaryLight> binaryLightsLocation = getBinaryLightFromlocation(location);
+		for (BinaryLight binaryLight : binaryLightsLocation) {
+			binaryLight.setPowerStatus(false);
+		}
+		List<DimmerLight> dimmerLightsLocation = getDimmerLightFromlocation(location);
+		for (DimmerLight dimmerLight : dimmerLightsLocation) {
+			dimmerLight.setPowerLevel(0.0d);
 		}
 	}
 }
